@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore CRUD</title>
+    <style>
+        body {
+            background-color: lightblue;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        input, button {
+            margin: 5px;
+        }
+        #books, #bookDetails {
+            margin-top: 20px;
+            text-align: left;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Bookstore CRUD</h1>
+    <div>
+        <input type="text" id="title" placeholder="Title">
+        <input type="text" id="author" placeholder="Author">
+        <input type="number" id="publicationYear" placeholder="Publication Year">
+        <button onclick="createBook()">Create Book</button>
+    </div>
+    <div>
+        <input type="number" id="bookId" placeholder="Book ID">
+        <button onclick="getBook()">Get Book</button>
+        <button onclick="updateBook()">Update Book</button>
+        <button onclick="deleteBook()">Delete Book</button>
+    </div>
+    <div id="bookDetails"></div>
+    <button onclick="getAllBooks()">Get All Books</button>
+    <div id="books"></div>
+</div>
+
+<script>
+        const apiBaseUrl = '/api/books';
+
+        async function createBook() {
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const publicationYear = document.getElementById('publicationYear').value;
+
+            const response = await fetch(apiBaseUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, author, publicationYear }),
+            });
+            const book = await response.json();
+            alert('Book created: ' + JSON.stringify(book));
+        }
+
+        async function getBook() {
+            const bookId = document.getElementById('bookId').value;
+
+            const response = await fetch(`${apiBaseUrl}/${bookId}`);
+            if (response.ok) {
+                const book = await response.json();
+                displayBookDetails(book);
+            } else {
+                alert('Book not found');
+            }
+        }
+
+        async function updateBook() {
+            const bookId = document.getElementById('bookId').value;
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const publicationYear = document.getElementById('publicationYear').value;
+
+            const response = await fetch(`${apiBaseUrl}/${bookId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, author, publicationYear }),
+            });
+
+            if (response.ok) {
+                const book = await response.json();
+                alert('Book updated: ' + JSON.stringify(book));
+            } else {
+                alert('Book not found');
+            }
+        }
+
+        async function deleteBook() {
+            const bookId = document.getElementById('bookId').value;
+
+            const response = await fetch(`${apiBaseUrl}/${bookId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                alert('Book deleted');
+            } else {
+                alert('Book not found');
+            }
+        }
+
+        async function getAllBooks() {
+            const response = await fetch(apiBaseUrl);
+            const books = await response.json();
+            displayBooks(books);
+        }
+
+        function displayBookDetails(book) {
+            const bookDetailsDiv = document.getElementById('bookDetails');
+            bookDetailsDiv.innerHTML = `
+                <h3>Book Details</h3>
+                <p>ID: ${book.id}</p>
+                <p>Title: ${book.title}</p>
+                <p>Author: ${book.author}</p>
+                <p>Publication Year: ${book.publicationYear}</p>
+            `;
+        }
+
+        function displayBooks(books) {
+            const booksDiv = document.getElementById('books');
+            booksDiv.innerHTML = `
+                <h3>All Books</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Publication Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${books.map(book => `
+                            <tr>
+                                <td>${book.id}</td>
+                                <td>${book.title}</td>
+                                <td>${book.author}</td>
+                                <td>${book.publicationYear}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+    </script>
+</body>
+</html>

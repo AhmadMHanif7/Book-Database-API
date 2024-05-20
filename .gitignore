@@ -1,0 +1,128 @@
+# Ignore Maven output directories
+target/
+
+# Ignore Maven specific files
+log/
+!src/main/resources/application.properties
+
+# Ignore build files
+*.war
+*.jar
+
+# Ignore IntelliJ IDEA project files
+.idea/
+*.iml
+*.iws
+out/
+
+# Ignore Eclipse project files
+.classpath
+.project
+.settings/
+
+# Ignore VS Code project files
+.vscode/
+
+# Ignore temporary files created by OS
+.DS_Store
+Thumbs.db
+
+# Ignore logs
+*.log
+
+# Ignore IntelliJ IDEA specific files
+.idea/
+*.iml
+*.iws
+
+# Ignore MacOS specific files
+.DS_Store
+
+# Ignore Node.js specific files (if using frontend dependencies)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Ignore static files build directories
+src/main/resources/static/js/*.js
+src/main/resources/static/css/*.css
+
+# Ignore database files
+*.db
+
+# Ignore H2 database files
+*.h2.db
+*.mv.db
+*.trace.db
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore class files
+*.class
+
+# Ignore package files
+*.jar
+*.war
+*.ear
+
+# Ignore IDE config files
+.idea/
+*.iml
+
+# Ignore compiled binary files
+*.dll
+*.exe
+
+# Ignore Python bytecode
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Java class files
+*.class
+
+# Ignore Java JAR files
+*.jar
+
+# Ignore Java WAR files
+*.war
+
+# Ignore Java EAR files
+*.ear
+
+# Ignore backup files
+*.bak
+
+# Ignore generated files
+generated/
+
+# Ignore front end dependencies
+node_modules/
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore other unwanted files
+*.swp
+*~
+
+# Ignore Eclipse config files
+.settings/
+
+# Ignore NetBeans specific files
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Ignore Visual Studio Code specific files
+.vscode/
+
+# Ignore package-lock.json
+package-lock.json
