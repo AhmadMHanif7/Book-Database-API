@@ -32,4 +32,3 @@ This project is a simple CRUD (Create, Read, Update, Delete) application for man
 1. Clone the repository:
    ```bash
    git clone https://github.com/AhmadMHanif7/Book-Database-API.git
-   cd bookstore-crud
